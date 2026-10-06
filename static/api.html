@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PolyMoney — Read-only API</title>
+  <link rel="stylesheet" href="/static/dashboard.css">
+</head>
+<body>
+  <header class="hdr"><h1>POLYMONEY</h1><span class="badge badge-yellow">RESEARCH · SYNTHETIC DATA</span></header>
+  <main>
+    <section class="intro">
+      <h2>Read-only local API</h2>
+      <p>These routes expose the included synthetic example and its fixed research mode.
+        They do not read a wallet, private environment settings or a trading account.</p>
+    </section>
+    <section class="card">
+      <h3>GET routes</h3>
+      <ul class="limits">
+        <li><a href="/api/demo"><code>/api/demo</code></a> — offline replay events, synthetic equity and assumptions.</li>
+        <li><a href="/api/health"><code>/api/health</code></a> — fixed mode and live-execution status.</li>
+        <li><a href="/openapi.json"><code>/openapi.json</code></a> — machine-readable API schema.</li>
+      </ul>
+      <p>No write endpoints or background workers are available. This page uses local resources only.</p>
+    </section>
+    <footer class="foot"><a href="/">Return to the research replay</a> · Research by NLINEA.</footer>
+  </main>
+</body>
+</html>

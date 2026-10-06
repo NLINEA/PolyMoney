@@ -130,6 +130,9 @@ def _ws_loop():
 
 def _connect_and_listen():
     """Connect to Polymarket Market Channel and listen for updates."""
+    from core.config import Config
+    if not Config.ALLOW_PUBLIC_DATA:
+        raise RuntimeError("Public data access is disabled")
     try:
         import websocket
     except ImportError:
@@ -212,16 +215,15 @@ def _connect_and_listen():
 
     # Native WS ping frames as second keepalive layer (detects half-open sockets).
     # If no PONG within ping_timeout, ws.run_forever returns and outer loop reconnects.
-    ws.run_forever(ping_interval=20, ping_timeout=10)
+    # Never inherit a proxy or its credentials from the private runtime environment.
+    ws.run_forever(ping_interval=20, ping_timeout=10, http_no_proxy=["*"])
 
 
 def _simple_ws_loop():
-    """Fallback: use simple websocket connection without websocket-client library."""
-    import ssl
-    import socket
-    import struct
-    import hashlib
-    import base64
+    """Fallback: poll public metadata through the credential-free GET adapter."""
+    from core.config import Config
+    if not Config.ALLOW_PUBLIC_DATA:
+        raise RuntimeError("Public data access is disabled")
 
     # Too complex for simple implementation, just poll Gamma API faster
     logger.warning("WebSocket fallback: polling Gamma API every 3s")

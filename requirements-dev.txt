@@ -1,2 +1,2 @@
 -r requirements.txt
-httpx>=0.28,<1
+# Test-client dependencies are included in the pinned snapshot.

@@ -11,7 +11,7 @@ The default example makes a simple point: **three wins at 95¢ and one full-stak
 loss produce a 75% win rate and a negative return.** All included trade inputs are
 synthetic. They are not an export of an account or a backtest of the strategies.
 
-![Synthetic research dashboard](docs/dashboard.jpg)
+![PolyMoney — Prediction market research](docs/polymoney-intro.png)
 
 ## Try the research replay
 
@@ -86,6 +86,8 @@ This edition contains no wallet signing, live order submission, redemption,
 private database connections, proxy bypass setup or outbound notifications.
 It ignores private runtime environment variables and does not load `.env`.
 Changing `DRY_RUN` cannot add a live execution adapter.
+The dashboard and API documentation use local resources, reject external Host
+headers and send no referrer information. See [the privacy boundaries](SECURITY.md).
 
 Read the [research notes](docs/RESEARCH_NOTES.md) and
 [architecture](docs/ARCHITECTURE.md) before interpreting the examples.

@@ -247,13 +247,75 @@ class DashboardTests(unittest.TestCase):
         from fastapi.testclient import TestClient
         from server import app
         with patch("socket.socket.connect", side_effect=AssertionError("unexpected network")):
-            with TestClient(app) as client:
+            with TestClient(app, base_url="http://127.0.0.1") as client:
                 self.assertEqual(client.get("/").status_code, 200)
                 self.assertEqual(client.get("/static/dashboard.js").status_code, 200)
                 self.assertEqual(client.get("/api/demo").json()["pnl"], -.8)
                 self.assertFalse(client.get("/api/health").json()["live_execution"])
                 self.assertEqual(client.post("/api/demo").status_code, 405)
                 self.assertEqual(client.get("/api/settings/set?key=mode&value=live").status_code, 404)
+
+    def test_docs_and_headers_keep_browser_resources_local(self):
+        from fastapi.testclient import TestClient
+        from server import app
+        with TestClient(app, base_url="http://127.0.0.1") as client:
+            for url in ["/", "/docs", "/api/demo", "/static/dashboard.js"]:
+                response = client.get(url)
+                self.assertEqual(response.status_code, 200)
+                self.assertEqual(response.headers["referrer-policy"], "no-referrer")
+                self.assertEqual(response.headers["x-content-type-options"], "nosniff")
+                self.assertIn("frame-ancestors 'none'", response.headers["content-security-policy"])
+                self.assertIn("connect-src 'self'", response.headers["content-security-policy"])
+            docs = client.get("/docs").text
+            self.assertNotIn("<script", docs)
+            self.assertNotIn("https://", docs)
+            self.assertNotIn("swagger", docs.lower())
+
+    def test_external_host_and_private_file_requests_are_rejected(self):
+        from fastapi.testclient import TestClient
+        from server import app
+        with TestClient(app, base_url="http://127.0.0.1") as client:
+            self.assertEqual(client.get("/api/demo", headers={"Host": "example.com"}).status_code, 400)
+            self.assertEqual(client.get("/api/demo", headers={"Host": "localhost:8000"}).status_code, 200)
+            for path in ["/.env", "/static/%2e%2e/.env", "/static/%2e%2e/core/config.py"]:
+                self.assertEqual(client.get(path).status_code, 404)
+
+
+class WebSocketPrivacyTests(unittest.TestCase):
+    def tearDown(self):
+        Config.ALLOW_PUBLIC_DATA = False
+
+    def test_all_worker_entry_points_require_explicit_public_data_access(self):
+        from engines import crypto_ws
+        for entry in [crypto_ws.start_ws, crypto_ws._connect_and_listen, crypto_ws._simple_ws_loop]:
+            with self.assertRaises(RuntimeError):
+                entry()
+
+    def test_optional_websocket_does_not_use_environment_proxy_credentials(self):
+        from engines import crypto_ws
+        Config.ALLOW_PUBLIC_DATA = True
+        websocket = MagicMock()
+        with patch.dict(sys.modules, {"websocket": websocket}), patch.object(crypto_ws.threading, "Thread"):
+            crypto_ws._connect_and_listen()
+        websocket.WebSocketApp.assert_called_once()
+        self.assertEqual(websocket.WebSocketApp.call_args.args[0],
+                         "wss://ws-subscriptions-clob.polymarket.com/ws/market")
+        self.assertEqual(websocket.WebSocketApp.return_value.run_forever.call_args.kwargs["http_no_proxy"], ["*"])
+
+
+class PublicationPrivacyTests(unittest.TestCase):
+    def test_intro_image_has_no_embedded_text_or_exif_metadata(self):
+        from tools.check_public_tree import image_metadata
+        data = (Path(__file__).resolve().parents[1] / "docs" / "polymoney-intro.png").read_bytes()
+        self.assertFalse(image_metadata(data, ".png"))
+        self.assertTrue(image_metadata(data + b"private-placeholder", ".png"))
+
+    def test_metadata_and_disguised_binary_assets_are_rejected(self):
+        from tools.check_public_tree import image_metadata
+        self.assertTrue(image_metadata(b"not-an-image", ".png"))
+        self.assertTrue(image_metadata(b"not-an-image", ".jpg"))
+        # A JPEG APP1 segment can contain EXIF/GPS; no metadata content is printed.
+        self.assertTrue(image_metadata(b"\xff\xd8\xff\xe1\x00\x08Exif\x00\x00\xff\xda\x00\x02", ".jpg"))
 
 
 if __name__ == "__main__":
