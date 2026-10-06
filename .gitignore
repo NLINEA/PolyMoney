@@ -1,0 +1,32 @@
+# Credentials and account data
+.env
+.env.*
+*.pem
+*.key
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.sqlite3-*
+*.log
+*.pid
+nohup*
+data/
+logs/
+exports/
+# Local builds and editors
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage*
+htmlcov/
+build/
+dist/
+*.egg-info/
+.DS_Store
+.idea/
+.vscode/
+*.swp

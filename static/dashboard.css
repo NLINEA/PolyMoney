@@ -1,0 +1,38 @@
+
+:root{--bg-0:#04070f;--bg-1:#0a1020;--bg-2:#111a2d;--card:rgba(11,20,38,.82);--border:#2b3c5f;--text:#dce9ff;--dim:#87a1c3;--accent:#72f4ff;--red:#ff5d78;--yellow:#ffd35b;--blue:#55a4ff;--green:#5ef2c2}
+*{margin:0;padding:0;box-sizing:border-box}
+body{min-height:100vh;background:radial-gradient(circle at 12% 10%,rgba(114,244,255,.15),transparent 28%),radial-gradient(circle at 86% 8%,rgba(94,242,194,.15),transparent 30%),linear-gradient(160deg,var(--bg-0),var(--bg-1) 52%,var(--bg-2));color:var(--text);font-family:system-ui,-apple-system,sans-serif;font-size:14px}
+.hdr{display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border);background:linear-gradient(90deg,rgba(114,244,255,.1),rgba(85,164,255,.06))}
+.hdr h1{font-family:ui-monospace,monospace;font-size:20px;font-weight:800;letter-spacing:.08em;color:var(--accent);text-shadow:0 0 14px rgba(114,244,255,.6)}
+.hdr .meta{color:var(--dim);font-size:12px}
+.badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.08em;border:1px solid transparent}
+.badge-yellow{background:rgba(255,211,91,.1);color:var(--yellow);border-color:rgba(255,211,91,.4)}
+.conn-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:14px 20px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-1{grid-template-columns:1fr}
+.card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px;backdrop-filter:blur(5px);box-shadow:0 14px 28px rgba(1,5,16,.55);position:relative;overflow:hidden}
+.card::after{content:'';position:absolute;top:0;right:0;width:64px;height:2px;background:linear-gradient(90deg,transparent,var(--accent))}
+.card h3{font-family:ui-monospace,monospace;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.11em;margin-bottom:10px}
+.big{font-family:ui-monospace,monospace;font-size:26px;font-weight:700;line-height:1}
+.sub{font-size:12px;color:var(--dim);margin-top:4px}
+.chart-box{position:relative;height:220px}
+.zoom-reset{position:absolute;top:4px;right:4px;background:var(--border);color:var(--dim);border:none;border-radius:4px;padding:2px 8px;font-size:10px;cursor:pointer;z-index:10}
+.zoom-reset:hover{background:var(--accent);color:var(--bg-0)}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;color:var(--dim);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border)}
+td{padding:6px 8px;border-bottom:1px solid rgba(43,60,95,.5)}
+.pos{color:var(--green)}.neg{color:var(--red)}
+.activity{max-height:250px;overflow-y:auto}
+.act-item{padding:5px 0;border-bottom:1px solid rgba(43,60,95,.4);font-size:12px}
+.act-time{color:var(--dim);font-size:10px;margin-right:6px}
+.act-type{font-family:ui-monospace,monospace;font-size:10px;font-weight:700;margin-right:6px}
+.nav-tab{font-family:ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-decoration:none;color:var(--dim);transition:color .2s}
+.nav-tab:hover{color:var(--accent)}
+.nav-tab-active{color:var(--accent)!important}
+.grid-metrics{grid-template-columns:repeat(4,1fr)!important}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr!important}.grid-2{grid-template-columns:1fr}.grid-metrics{grid-template-columns:repeat(4,1fr)!important}}
+@media(max-width:600px){.grid{grid-template-columns:1fr 1fr!important}.grid-metrics{grid-template-columns:repeat(2,1fr)!important}}
+
+main{max-width:1280px;margin:0 auto}a{color:var(--accent)}.intro{padding:20px;line-height:1.65;max-width:950px}.intro h2{font-size:24px;margin-bottom:8px}.intro p{color:var(--dim)}.hdr{gap:16px;flex-wrap:wrap}.badge{font-size:12px}.table-wrap{overflow:auto}table{min-width:640px}td,th{padding:12px 8px}svg{width:100%;height:220px}.limits{padding-left:20px;line-height:1.8;color:var(--dim)}.foot{padding:20px;color:var(--dim);line-height:1.6}.error{color:var(--red);padding:20px}[hidden]{display:none!important}
+@media(max-width:600px){.grid.grid-2{grid-template-columns:1fr!important}.hdr h1{font-size:18px}.big{font-size:22px}}

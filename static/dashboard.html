@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PolyMoney research dashboard: synthetic order-book replay and risk accounting.">
+  <title>PolyMoney — Research Replay</title>
+  <link rel="stylesheet" href="/static/dashboard.css">
+  <script src="/static/dashboard.js" defer></script>
+</head>
+<body>
+  <header class="hdr">
+    <h1>POLYMONEY</h1>
+    <span class="badge badge-yellow">RESEARCH · SYNTHETIC DATA</span>
+    <a href="https://github.com/NLINEA/PolyMoney">View source</a>
+  </header>
+  <main>
+    <section class="intro">
+      <h2>High win rate, negative return</h2>
+      <p>Replay three small wins and one full-stake loss through the research ledger.
+        The inputs are invented examples with declared outcomes. These figures demonstrate
+        execution and accounting behavior; they are not historical trading results.</p>
+    </section>
+    <p id="error" class="error" role="alert" hidden></p>
+    <section class="grid grid-metrics" aria-label="Synthetic replay metrics">
+      <div class="card"><h3>Win rate</h3><div class="big" id="win-rate">—</div><p class="sub" id="win-count">Loading example…</p></div>
+      <div class="card"><h3>Net P&amp;L</h3><div class="big" id="pnl">—</div><p class="sub">Synthetic dollars · zero fixture fees</p></div>
+      <div class="card"><h3>Ending equity</h3><div class="big" id="bankroll">—</div><p class="sub">Starting equity: $100.00</p></div>
+      <div class="card"><h3>Unexecuted</h3><div class="big" id="unexecuted">—</div><p class="sub">Empty depth or risk rejection</p></div>
+    </section>
+    <section class="grid grid-2">
+      <div class="card"><h3>Equity after each supplied signal</h3><div id="curve" aria-label="Synthetic equity curve"></div></div>
+      <div class="card"><h3>Execution assumptions</h3><ul class="limits" id="limitations"></ul></div>
+    </section>
+    <section class="grid grid-1">
+      <div class="card"><h3>Replay events</h3><div class="table-wrap"><table>
+        <thead><tr><th>Example</th><th>Status</th><th>Entry</th><th>Cost</th><th>Payout</th><th>P&amp;L</th></tr></thead>
+        <tbody id="events"></tbody>
+      </table></div></div>
+    </section>
+    <footer class="foot">Research by NLINEA. The published runner simulates supplied signals;
+      it does not evaluate whether a strategy predicted the outcome.
+      <a href="/docs">Read-only API</a> ·
+      <a href="https://nlinea.io/records/polymoney-polymarket-automation/">Research record</a>
+    </footer>
+  </main>
+</body>
+</html>

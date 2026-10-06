@@ -1,0 +1,146 @@
+{
+  "data_kind": "synthetic",
+  "title": "High win rate, negative return",
+  "description": "Three small wins and one full-stake loss. Supplied signals demonstrate accounting and execution assumptions, not strategy performance.",
+  "trades": [
+    {
+      "market_id": "synthetic-1",
+      "token_id": "demo-token-1",
+      "question": "Bitcoin Up or Down \u2014 synthetic example 1",
+      "engine": "crypto_snipe",
+      "side": "YES",
+      "limit_price": 0.95,
+      "shares": 1,
+      "order_type": "FAK",
+      "fee_usd": 0,
+      "book": {
+        "bids": [
+          {
+            "price": 0.94,
+            "size": 1
+          }
+        ],
+        "asks": [
+          {
+            "price": 0.95,
+            "size": 1
+          }
+        ]
+      },
+      "outcome": "YES"
+    },
+    {
+      "market_id": "synthetic-2",
+      "token_id": "demo-token-2",
+      "question": "Bitcoin Up or Down \u2014 synthetic example 2",
+      "engine": "crypto_snipe",
+      "side": "YES",
+      "limit_price": 0.95,
+      "shares": 1,
+      "order_type": "FAK",
+      "fee_usd": 0,
+      "book": {
+        "bids": [
+          {
+            "price": 0.94,
+            "size": 1
+          }
+        ],
+        "asks": [
+          {
+            "price": 0.95,
+            "size": 1
+          }
+        ]
+      },
+      "outcome": "YES"
+    },
+    {
+      "market_id": "synthetic-3",
+      "token_id": "demo-token-3",
+      "question": "Bitcoin Up or Down \u2014 synthetic example 3",
+      "engine": "crypto_snipe",
+      "side": "YES",
+      "limit_price": 0.95,
+      "shares": 1,
+      "order_type": "FAK",
+      "fee_usd": 0,
+      "book": {
+        "bids": [
+          {
+            "price": 0.94,
+            "size": 1
+          }
+        ],
+        "asks": [
+          {
+            "price": 0.95,
+            "size": 1
+          }
+        ]
+      },
+      "outcome": "YES"
+    },
+    {
+      "market_id": "synthetic-4",
+      "token_id": "demo-token-4",
+      "question": "Bitcoin Up or Down \u2014 synthetic example 4",
+      "engine": "crypto_snipe",
+      "side": "YES",
+      "limit_price": 0.95,
+      "shares": 1,
+      "order_type": "FAK",
+      "fee_usd": 0,
+      "book": {
+        "bids": [
+          {
+            "price": 0.94,
+            "size": 1
+          }
+        ],
+        "asks": [
+          {
+            "price": 0.95,
+            "size": 1
+          }
+        ]
+      },
+      "outcome": "NO"
+    },
+    {
+      "market_id": "synthetic-5",
+      "token_id": "demo-token-5",
+      "question": "Empty book",
+      "engine": "crypto_snipe",
+      "side": "YES",
+      "limit_price": 0.95,
+      "shares": 1,
+      "order_type": "FAK",
+      "book": {
+        "bids": [],
+        "asks": []
+      },
+      "outcome": "YES"
+    },
+    {
+      "market_id": "synthetic-6",
+      "token_id": "demo-token-6",
+      "question": "Oversized request",
+      "engine": "crypto_snipe",
+      "side": "YES",
+      "limit_price": 0.95,
+      "shares": 10,
+      "order_type": "FAK",
+      "book": {
+        "bids": [],
+        "asks": [
+          {
+            "price": 0.95,
+            "size": 10
+          }
+        ]
+      },
+      "outcome": "YES"
+    }
+  ]
+}
